@@ -90,21 +90,6 @@ def main():
             fulfillment_text = f'O número de telefone {telefone} não está cadastrado. Chat encerrado.'
 
         data["fulfillmentText"] = fulfillment_text
-        
-
-    elif intent_name == "finalizar_teste_audio_save":
-        audio_atual = data["queryResult"]["parameters"]["audio_autal"]
-        
-        conn = sqlite3.connect('data.db')
-        cursor = conn.cursor()
-        cursor.execute('UPDATE appointments SET audio_atual = ? WHERE telefone = ?', (audio_atual, telefone))
-
-        conn.commit()
-        conn.close()
-        
-        data["fulfillmentText"] = "Audio salvo com sucesso, obrigado pela atenção"
-
-    return jsonify(data)
 
 
 # Executar o Flask
