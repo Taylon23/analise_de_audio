@@ -28,8 +28,7 @@ def analisar_caracteristicas_acusticas(audio, taxa_amostragem=44100):
     pitch = freq_in_hertz * taxa_amostragem
 
     # Calcular a entonação (desvio padrão das frequências fundamentais)
-    tons_medios, _ = librosa.piptrack(
-        y=audio_preprocessado, sr=taxa_amostragem)
+    tons_medios, _ = librosa.piptrack( y=audio_preprocessado, sr=taxa_amostragem)
     entonacao = np.std(np.diff(np.mean(tons_medios, axis=0)))
 
     return pitch, entonacao
@@ -48,7 +47,7 @@ def calcular_taxa_fala(texto, duracao_audio_segundos):
     num_palavras = len(texto.split())
 
     # Calcular a taxa de fala em palavras por minuto (WPM)
-    taxa_fala_wpm = (num_palavras / duracao_audio_segundos) * 60
+    taxa_fala_wpm = (num_palavras / duracao_audio_segundos) * 20
 
     return taxa_fala_wpm
 
@@ -77,8 +76,7 @@ def gravar_analisar_audio():
     try:
         # Gravar áudio do microfone
         print("Gravando áudio...")
-        audio = sd.rec(int(60 * 44100), samplerate=44100,
-                       channels=1, dtype='float64')
+        audio = sd.rec(int(30 * 44100), samplerate=44100, channels=1, dtype='float64')
         sd.wait()
 
         # Salvar o áudio gravado em um arquivo WAV
@@ -101,7 +99,7 @@ def gravar_analisar_audio():
         print("\nCaracterísticas acústicas do áudio gravado:")
         print("Pitch médio (Hz):", pitch_medio)
         print("Entonação:", entonacao)
-        print("Taxa de fala:", taxa_fala_wpm, "em 1 minuto")
+        print("Taxa de fala:", taxa_fala_wpm, "em 20 segundos")
         print("Tempo médio de pausas por palavra: {:.2f} segundos".format(
             tempo_medio_pausas_por_palavra))
 
